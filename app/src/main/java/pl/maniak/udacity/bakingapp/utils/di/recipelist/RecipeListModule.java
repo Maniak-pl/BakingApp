@@ -8,6 +8,7 @@ import pl.maniak.udacity.bakingapp.api.RecipeInterface;
 import pl.maniak.udacity.bakingapp.ui.recipelist.RecipeListActivity;
 import pl.maniak.udacity.bakingapp.ui.recipelist.RecipeListContract;
 import pl.maniak.udacity.bakingapp.ui.recipelist.RecipeListPresenter;
+import pl.maniak.udacity.bakingapp.ui.recipelist.recipe.RecipeAdapter;
 
 @Module
 @RequiredArgsConstructor
@@ -20,5 +21,10 @@ public class RecipeListModule {
         return RecipeListPresenter.builder()
                 .recipeInterface(recipeInterface)
                 .build();
+    }
+
+    @Provides
+    RecipeAdapter provideRecipeAdapter() {
+        return new RecipeAdapter(context);
     }
 }

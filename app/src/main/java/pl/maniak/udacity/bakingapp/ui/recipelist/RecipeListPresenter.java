@@ -48,7 +48,7 @@ public class RecipeListPresenter implements RecipeListContract.Presenter {
     }
 
     @Override
-    public void onActivityReady() {
+    public void getRecipeList() {
         new RecipeTask().execute();
     }
 
@@ -62,6 +62,7 @@ public class RecipeListPresenter implements RecipeListContract.Presenter {
         protected void onPostExecute(List<Recipe> recipes) {
             if(recipes != null && view !=null) {
                 view.showRecipeList(recipes);
+                view.hideProgress();
             }
         }
     }

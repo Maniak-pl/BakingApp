@@ -1,17 +1,20 @@
 package pl.maniak.udacity.bakingapp.ui.recipelist;
 
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.util.DisplayMetrics;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import pl.maniak.udacity.bakingapp.R;
 import pl.maniak.udacity.bakingapp.data.Recipe;
 import pl.maniak.udacity.bakingapp.ui.BaseActivity;
+import pl.maniak.udacity.bakingapp.ui.recipelist.recipe.RecipeAdapter;
+
 import pl.maniak.udacity.bakingapp.utils.di.recipelist.DaggerRecipeListComponent;
 import pl.maniak.udacity.bakingapp.utils.di.recipelist.RecipeListModule;
 
@@ -20,11 +23,16 @@ public class RecipeListActivity extends BaseActivity implements RecipeListContra
     @BindView(R.id.recipe_list_recycler_view)
     RecyclerView recyclerView;
 
-    @BindView(R.id.recipe_list_progress_bar)
-    SmoothProgressBar progressBar;
+    @BindView(R.id.recipe_list_swipe_refresh)
+    SwipeRefreshLayout swipeRefreshLayout;
+
+    @Inject
+    RecipeAdapter adapter;
 
     @Inject
     RecipeListContract.Presenter presenter;
+
+    private List<Recipe> list;
 
     @Override
     protected int getLayoutId() {
@@ -43,8 +51,23 @@ public class RecipeListActivity extends BaseActivity implements RecipeListContra
     @Override
     protected void init() {
         initPresenter();
+        initRecycler();
+    }
 
+    private void initRecycler() {
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, numberOfColumns());
+        recyclerView.setLayoutManager(layoutManager);
+        adapter.setOnClickListener(recipe -> presenter.onRecipeItemClicked());
+        swipeRefreshLayout.setOnRefreshListener(() -> presenter.getRecipeList());
+        recyclerView.setAdapter(adapter);
+    }
 
+    private int numberOfColumns() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int widthDivider = 800;
+        int width = displayMetrics.widthPixels;
+        return width / widthDivider;
     }
 
     @Override
@@ -54,8 +77,9 @@ public class RecipeListActivity extends BaseActivity implements RecipeListContra
     }
 
     private void onActivityReady() {
-        if(isOnline()) {
-            presenter.onActivityReady();
+        if (isOnline()) {
+            showProgress();
+            presenter.getRecipeList();
         } else {
             showToast(getString(R.string.toast_connection_error));
         }
@@ -78,8 +102,29 @@ public class RecipeListActivity extends BaseActivity implements RecipeListContra
 
     @Override
     public void showRecipeList(List<Recipe> recipes) {
-        Log.e("Maniak", "RecipeListActivity.showRecipeList: "+recipes);
+        updateRecipes(recipes);
     }
 
 
+    private void showProgress() {
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setRefreshing(true);
+        }
+    }
+
+    @Override
+    public void hideProgress() {
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    private void updateRecipes(List<Recipe> recipes) {
+        if (recipes != null) {
+            list = recipes;
+            if (adapter != null) {
+                adapter.updateRecipe(list);
+            }
+        }
+    }
 }

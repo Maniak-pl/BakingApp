@@ -10,6 +10,7 @@ public interface RecipeListContract {
 
     interface View extends BaseContract.View {
         void showRecipeList(List<Recipe> recipes);
+        void hideProgress();
     }
 
     interface Router extends BaseContract.Router {
@@ -17,6 +18,6 @@ public interface RecipeListContract {
 
     interface Presenter extends BaseContract.Presenter<View, Router> {
         void onRecipeItemClicked();
-        void onActivityReady();
+        void getRecipeList();
     }
 }

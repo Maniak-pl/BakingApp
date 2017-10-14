@@ -65,8 +65,8 @@ dependencies {
     //ExoPlayer
     compile 'com.google.android.exoplayer:exoplayer:r2.4.1'
 
-    // SmoothProgressBar
-    compile 'com.github.castorflex.smoothprogressbar:library:1.0.0'
+    //Third-party libraries
+    compile 'com.loopeer.lib:shadow:0.0.3'
 
     //Test
     testCompile 'junit:junit:4.12'
