@@ -43,7 +43,7 @@ android:layout_height="wrap_content"
                 android:lines="1"
                 android:padding="10dp"
                 android:textColor="@color/white"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 app:layout_gravity="center"/>
         </com.loopeer.shadow.ShadowView>
 
@@ -59,8 +59,10 @@ android:layout_height="wrap_content"
     </LinearLayout>
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+        android:id="@+id/recipe_details_step_player"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="200dp"
+        android:padding="10dp">
 
     </com.google.android.exoplayer2.ui.SimpleExoPlayerView>
 
@@ -80,7 +82,7 @@ android:layout_height="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:textColor="@color/white"
-            android:textSize="11sp"/>
+            android:textSize="12sp"/>
     </com.loopeer.shadow.ShadowView>
 </LinearLayout>
 </ScrollView>

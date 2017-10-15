@@ -1,5 +1,7 @@
 package pl.maniak.udacity.bakingapp.ui.recipedetails.fragment;
 
+import android.net.Uri;
+
 import java.util.List;
 
 import pl.maniak.udacity.bakingapp.data.Step;
@@ -14,7 +16,11 @@ public interface RecipeDetailsStepFragmentContract {
 
         void showNavigationButton(boolean showPreviousButton, boolean showNextButton);
 
-        void showRecipeVideo();
+        void showExoPlayer(boolean showPlayer);
+
+        void initVideo(Uri mediaUri);
+
+        void releasePlayer();
     }
 
     interface Router extends BaseContract.Router {
@@ -26,5 +32,7 @@ public interface RecipeDetailsStepFragmentContract {
         void onPreviousButtonClicked();
 
         void onFragmentReady(List<Step> list, int stepId);
+
+        void onFragmentPause();
     }
 }

@@ -1,5 +1,7 @@
 package pl.maniak.udacity.bakingapp.ui.recipedetails.fragment;
 
+import android.net.Uri;
+
 import java.util.List;
 
 import pl.maniak.udacity.bakingapp.data.Step;
@@ -57,11 +59,30 @@ public class RecipeDetailsStepFragmentPresenter implements RecipeDetailsStepFrag
         showDetailStep();
     }
 
+    @Override
+    public void onFragmentPause() {
+        if(view != null) {
+            view.releasePlayer();
+        }
+    }
+
     private void showDetailStep() {
         if (view != null) {
             showNavigationButton();
+            view.releasePlayer();
+            showRecipeStepViedo();
             view.showTitleDetailStep(getStep().getShortDescription());
             view.showDescriptionDetailStep(getStep().getDescription());
+        }
+    }
+
+    private void showRecipeStepViedo() {
+        String video = getStep().getVideoURL();
+        if(video != null && !video.isEmpty()) {
+            view.showExoPlayer(true);
+            view.initVideo(Uri.parse(video));
+        } else {
+            view.showExoPlayer(false);
         }
     }
 
