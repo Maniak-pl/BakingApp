@@ -1,17 +1,18 @@
 package pl.maniak.udacity.bakingapp.ui.recipedetails;
 
+import android.os.Bundle;
+
+import java.util.List;
+
 import pl.maniak.udacity.bakingapp.R;
-import pl.maniak.udacity.bakingapp.data.Recipe;
+import pl.maniak.udacity.bakingapp.data.Step;
 import pl.maniak.udacity.bakingapp.ui.BaseActivity;
 import pl.maniak.udacity.bakingapp.ui.recipedetails.fragment.RecipeDetailsStepFragment;
 
-import static pl.maniak.udacity.bakingapp.utils.Constants.BUNDLE_KEY_RECIPE;
 import static pl.maniak.udacity.bakingapp.utils.Constants.BUNDLE_KEY_STEP;
+import static pl.maniak.udacity.bakingapp.utils.Constants.BUNDLE_KEY_STEP_ID;
 
 public class RecipeStepActivity extends BaseActivity {
-
-    private Recipe recipe;
-    private int stepId;
 
     @Override
     protected int getLayoutId() {
@@ -19,24 +20,25 @@ public class RecipeStepActivity extends BaseActivity {
     }
 
     @Override
-    protected void initDaggerComponent() { }
+    protected void initDaggerComponent() {
+    }
 
     @Override
     protected void init() {
-        if (getIntent().getExtras() != null) {
-            recipe = getIntent().getExtras().getParcelable(BUNDLE_KEY_RECIPE);
-            stepId = getIntent().getExtras().getInt(BUNDLE_KEY_STEP);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            showDetailsStepFragment(bundle.getParcelableArrayList(BUNDLE_KEY_STEP), bundle.getInt(BUNDLE_KEY_STEP_ID));
         }
-        showDetailsStepFragment();
     }
 
-    private void showDetailsStepFragment() {
+    private void showDetailsStepFragment(List<Step> stepList, int currentId) {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.detailStepContainer,
-                        RecipeDetailsStepFragment.newInstance(recipe, stepId))
+                        RecipeDetailsStepFragment.newInstance(stepList, currentId))
                 .commit();
     }
 
     @Override
-    protected void clear() { }
+    protected void clear() {
+    }
 }

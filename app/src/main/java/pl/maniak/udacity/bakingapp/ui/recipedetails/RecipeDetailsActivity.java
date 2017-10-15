@@ -1,7 +1,10 @@
 package pl.maniak.udacity.bakingapp.ui.recipedetails;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.ActionBar;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -75,8 +78,8 @@ public class RecipeDetailsActivity extends BaseActivity implements RecipeDetails
     @Override
     public void navigateToRecipeStep(Recipe recipe, int stepId) {
         Intent intent = new Intent(this, RecipeStepActivity.class);
-        intent.putExtra(Constants.BUNDLE_KEY_RECIPE, recipe);
-        intent.putExtra(Constants.BUNDLE_KEY_STEP, stepId);
+        intent.putParcelableArrayListExtra(Constants.BUNDLE_KEY_STEP, (ArrayList<? extends Parcelable>) recipe.getSteps());
+        intent.putExtra(Constants.BUNDLE_KEY_STEP_ID, stepId);
         startActivity(intent);
     }
 }
