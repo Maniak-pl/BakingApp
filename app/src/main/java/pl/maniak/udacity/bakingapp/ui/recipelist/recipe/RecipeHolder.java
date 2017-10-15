@@ -34,7 +34,7 @@ class RecipeHolder extends RecyclerView.ViewHolder {
 
     @OnClick(R.id.recipe_item_root)
     void onItemClicked() {
-        if(onClickListener != null) {
+        if (onClickListener != null) {
             onClickListener.onRecipeItemClicked(recipe);
         }
     }

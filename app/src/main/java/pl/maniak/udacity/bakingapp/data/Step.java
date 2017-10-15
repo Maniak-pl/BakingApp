@@ -11,7 +11,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @AllArgsConstructor
-public class Step implements Parcelable{
+public class Step implements Parcelable {
 
     private int id;
     private String shortDescription;

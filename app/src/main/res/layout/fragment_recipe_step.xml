@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView     xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/recipe_details_step_previous"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight=".1"
+            android:padding="10dp"
+            android:src="@drawable/ic_chevron_left_black"/>
+
+        <com.loopeer.shadow.ShadowView
+            android:id="@+id/recipe_details_step_title_shadow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".8"
+            android:elevation="15dp"
+            app:backgroundColor="@color/colorAccent"
+            app:cornerRadius="10dp"
+            app:shadowColor="@color/colorPrimary"
+            app:shadowMargin="10dp"
+            app:shadowRadius="10dp">
+
+            <TextView
+                android:id="@+id/recipe_details_step_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:lines="1"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:textSize="11sp"
+                app:layout_gravity="center"/>
+        </com.loopeer.shadow.ShadowView>
+
+        <ImageView
+            android:id="@+id/recipe_details_step_next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight=".1"
+            android:padding="10dp"
+            android:src="@drawable/ic_chevron_right_black"/>
+
+    </LinearLayout>
+
+    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.google.android.exoplayer2.ui.SimpleExoPlayerView>
+
+    <com.loopeer.shadow.ShadowView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="15dp"
+        app:backgroundColor="@color/colorAccent"
+        app:cornerRadius="10dp"
+        app:shadowColor="@color/colorPrimary"
+        app:shadowMargin="10dp"
+        app:shadowRadius="10dp">
+
+        <TextView
+            android:id="@+id/recipe_details_step_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textSize="11sp"/>
+    </com.loopeer.shadow.ShadowView>
+</LinearLayout>
+</ScrollView>

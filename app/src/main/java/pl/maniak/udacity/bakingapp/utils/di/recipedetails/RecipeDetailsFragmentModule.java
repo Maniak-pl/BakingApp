@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import dagger.Module;
 import dagger.Provides;
 import lombok.RequiredArgsConstructor;
-import pl.maniak.udacity.bakingapp.data.Recipe;
 import pl.maniak.udacity.bakingapp.ui.recipedetails.fragment.RecipeDetailsFragment;
 import pl.maniak.udacity.bakingapp.ui.recipedetails.fragment.RecipeDetailsFragmentContract;
 import pl.maniak.udacity.bakingapp.ui.recipedetails.fragment.RecipeDetailsFragmentPresenter;

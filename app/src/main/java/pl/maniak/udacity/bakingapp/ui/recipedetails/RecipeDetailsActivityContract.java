@@ -11,11 +11,11 @@ public interface RecipeDetailsActivityContract {
     }
 
     interface Router extends BaseContract.Router {
-        void navigateToRecipeStep(Recipe recipe);
+        void navigateToRecipeStep(Recipe recipe, int stepId);
     }
 
     interface Presenter extends BaseContract.Presenter<View, Router> {
-        void onRecipeStepItemClicked(Recipe recipe);
+        void onRecipeStepItemClicked(Recipe recipe, int stepId);
         void onActivityReady(Recipe recipe);
     }
 }

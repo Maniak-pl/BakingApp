@@ -9,6 +9,7 @@ import android.widget.TextView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import lombok.Setter;
 import pl.maniak.udacity.bakingapp.App;
 import pl.maniak.udacity.bakingapp.R;
 import pl.maniak.udacity.bakingapp.data.Recipe;
@@ -36,6 +37,9 @@ public class RecipeDetailsFragment extends BaseFragment implements RecipeDetails
     RecyclerView.LayoutManager layoutManager;
 
     private Recipe recipe;
+
+    @Setter
+    private OnStepClickedCallback onStepClickedCallback;
 
     public RecipeDetailsFragment() {
 
@@ -69,7 +73,7 @@ public class RecipeDetailsFragment extends BaseFragment implements RecipeDetails
 
     private void initRecycler() {
         recyclerView.setLayoutManager(layoutManager);
-        adapter.setOnClickListener(step -> presenter.onStepItemClicked(step));
+        adapter.setOnClickListener(step -> presenter.onStepItemClicked(recipe, step.getId()));
         recyclerView.setAdapter(adapter);
         adapter.updateStep(recipe.getSteps());
     }
@@ -96,5 +100,16 @@ public class RecipeDetailsFragment extends BaseFragment implements RecipeDetails
     @Override
     public void showIngredients(String ingredients) {
         ingredientsLabel.setText(ingredients);
+    }
+
+    @Override
+    public void navigateToRecipeStep(Recipe recipe, int stepId) {
+        if (onStepClickedCallback != null) {
+            onStepClickedCallback.onStepClicked(recipe, stepId);
+        }
+    }
+
+    public interface OnStepClickedCallback {
+        void onStepClicked(Recipe recipe, int stepId);
     }
 }

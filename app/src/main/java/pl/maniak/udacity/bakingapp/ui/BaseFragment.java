@@ -44,7 +44,7 @@ public abstract class BaseFragment extends Fragment implements BaseContract.Rout
 
     @Override
     public void showToast(String message) {
-        ((BaseActivity)getActivity()).showToast(message);
+        ((BaseActivity) getActivity()).showToast(message);
     }
 
     @Override

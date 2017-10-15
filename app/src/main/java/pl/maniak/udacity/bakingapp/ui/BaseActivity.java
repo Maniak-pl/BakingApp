@@ -58,6 +58,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     protected boolean isOnline() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-        return networkInfo !=null && networkInfo.isConnectedOrConnecting();
+        return networkInfo != null && networkInfo.isConnectedOrConnecting();
     }
 }

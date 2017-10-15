@@ -44,7 +44,7 @@ public class RecipeListPresenter implements RecipeListContract.Presenter {
 
     @Override
     public void onRecipeItemClicked(Recipe recipe) {
-        if(router != null) {
+        if (router != null) {
             router.navigateToRecipeDetail(recipe);
         }
     }
@@ -62,7 +62,7 @@ public class RecipeListPresenter implements RecipeListContract.Presenter {
 
         @Override
         protected void onPostExecute(List<Recipe> recipes) {
-            if(recipes != null && view !=null) {
+            if (recipes != null && view != null) {
                 view.showRecipeList(recipes);
                 view.hideProgress();
             }

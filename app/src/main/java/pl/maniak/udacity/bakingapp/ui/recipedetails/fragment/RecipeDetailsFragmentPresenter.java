@@ -4,7 +4,6 @@ import java.util.List;
 
 import pl.maniak.udacity.bakingapp.data.Ingredient;
 import pl.maniak.udacity.bakingapp.data.Recipe;
-import pl.maniak.udacity.bakingapp.data.Step;
 
 public class RecipeDetailsFragmentPresenter implements RecipeDetailsFragmentContract.Presenter {
 
@@ -45,7 +44,11 @@ public class RecipeDetailsFragmentPresenter implements RecipeDetailsFragmentCont
     }
 
     @Override
-    public void onStepItemClicked(Step step) { }
+    public void onStepItemClicked(Recipe recipe, int stepId) {
+        if (router != null) {
+            router.navigateToRecipeStep(recipe, stepId);
+        }
+    }
 
     private String preparationIngredientsList(List<Ingredient> list) {
         StringBuilder sb = new StringBuilder();

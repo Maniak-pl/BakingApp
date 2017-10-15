@@ -1,7 +1,5 @@
 package pl.maniak.udacity.bakingapp.ui.recipedetails;
 
-import android.util.Log;
-
 import pl.maniak.udacity.bakingapp.data.Recipe;
 
 public class RecipeDetailsActivityPresenter implements RecipeDetailsActivityContract.Presenter {
@@ -36,13 +34,15 @@ public class RecipeDetailsActivityPresenter implements RecipeDetailsActivityCont
     }
 
     @Override
-    public void onRecipeStepItemClicked(Recipe recipe) {
-        Log.e("Maniak", "RecipeDetailsActivityPresenter.onRecipeStepItemClicked(): ");
+    public void onRecipeStepItemClicked(Recipe recipe, int stepId) {
+        if (router != null) {
+            router.navigateToRecipeStep(recipe, stepId);
+        }
     }
 
     @Override
     public void onActivityReady(Recipe recipe) {
-        if(view != null) {
+        if (view != null) {
             view.setActivityTitle(recipe.getName());
             view.showDetailsFragment();
         }

@@ -33,7 +33,7 @@ public class StepHolder extends RecyclerView.ViewHolder {
 
     @OnClick(R.id.recipe_step_item_root)
     void onItemClicked() {
-        if(onClickListener != null) {
+        if (onClickListener != null) {
             onClickListener.onStepItemClicked(step);
         }
     }
