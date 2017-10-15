@@ -1,5 +1,6 @@
 package pl.maniak.udacity.bakingapp.ui.recipelist;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,10 +14,12 @@ import butterknife.BindView;
 import pl.maniak.udacity.bakingapp.R;
 import pl.maniak.udacity.bakingapp.data.Recipe;
 import pl.maniak.udacity.bakingapp.ui.BaseActivity;
+import pl.maniak.udacity.bakingapp.ui.recipedetails.RecipeDetailsActivity;
 import pl.maniak.udacity.bakingapp.ui.recipelist.recipe.RecipeAdapter;
-
 import pl.maniak.udacity.bakingapp.utils.di.recipelist.DaggerRecipeListComponent;
 import pl.maniak.udacity.bakingapp.utils.di.recipelist.RecipeListModule;
+
+import static pl.maniak.udacity.bakingapp.utils.Constants.BUNDLE_KEY_RECIPE;
 
 public class RecipeListActivity extends BaseActivity implements RecipeListContract.View, RecipeListContract.Router {
 
@@ -31,8 +34,6 @@ public class RecipeListActivity extends BaseActivity implements RecipeListContra
 
     @Inject
     RecipeListContract.Presenter presenter;
-
-    private List<Recipe> list;
 
     @Override
     protected int getLayoutId() {
@@ -57,7 +58,7 @@ public class RecipeListActivity extends BaseActivity implements RecipeListContra
     private void initRecycler() {
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, numberOfColumns());
         recyclerView.setLayoutManager(layoutManager);
-        adapter.setOnClickListener(recipe -> presenter.onRecipeItemClicked());
+        adapter.setOnClickListener(recipe -> presenter.onRecipeItemClicked(recipe));
         swipeRefreshLayout.setOnRefreshListener(() -> presenter.getRecipeList());
         recyclerView.setAdapter(adapter);
     }
@@ -96,8 +97,10 @@ public class RecipeListActivity extends BaseActivity implements RecipeListContra
     }
 
     @Override
-    public void navigateToRecipeDetail() {
-
+    public void navigateToRecipeDetail(Recipe recipe) {
+        Intent intent = new Intent(this, RecipeDetailsActivity.class);
+        intent.putExtra(BUNDLE_KEY_RECIPE, recipe);
+        startActivity(intent);
     }
 
     @Override
@@ -120,11 +123,8 @@ public class RecipeListActivity extends BaseActivity implements RecipeListContra
     }
 
     private void updateRecipes(List<Recipe> recipes) {
-        if (recipes != null) {
-            list = recipes;
-            if (adapter != null) {
-                adapter.updateRecipe(list);
-            }
+        if (recipes != null && adapter != null) {
+            adapter.updateRecipe(recipes);
         }
     }
 }

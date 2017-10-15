@@ -14,10 +14,11 @@ public interface RecipeListContract {
     }
 
     interface Router extends BaseContract.Router {
+        void navigateToRecipeDetail(Recipe recipe);
     }
 
     interface Presenter extends BaseContract.Presenter<View, Router> {
-        void onRecipeItemClicked();
+        void onRecipeItemClicked(Recipe recipe);
         void getRecipeList();
     }
 }

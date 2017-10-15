@@ -43,8 +43,10 @@ public class RecipeListPresenter implements RecipeListContract.Presenter {
     }
 
     @Override
-    public void onRecipeItemClicked() {
-
+    public void onRecipeItemClicked(Recipe recipe) {
+        if(router != null) {
+            router.navigateToRecipeDetail(recipe);
+        }
     }
 
     @Override

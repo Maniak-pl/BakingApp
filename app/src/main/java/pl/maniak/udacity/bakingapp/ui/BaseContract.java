@@ -8,7 +8,6 @@ public interface BaseContract {
     }
 
     interface Router {
-        void navigateToRecipeDetail();
         void navigateBack();
     }
 
