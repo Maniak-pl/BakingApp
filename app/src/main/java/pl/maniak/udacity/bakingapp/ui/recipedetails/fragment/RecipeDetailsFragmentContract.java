@@ -2,6 +2,7 @@ package pl.maniak.udacity.bakingapp.ui.recipedetails.fragment;
 
 
 import pl.maniak.udacity.bakingapp.data.Recipe;
+import pl.maniak.udacity.bakingapp.data.Step;
 import pl.maniak.udacity.bakingapp.ui.BaseContract;
 
 public interface RecipeDetailsFragmentContract {
@@ -14,5 +15,6 @@ public interface RecipeDetailsFragmentContract {
 
     interface Presenter extends BaseContract.Presenter<View, Router> {
         void onFragmentReady(Recipe recipe);
+        void onStepItemClicked(Step step);
     }
 }

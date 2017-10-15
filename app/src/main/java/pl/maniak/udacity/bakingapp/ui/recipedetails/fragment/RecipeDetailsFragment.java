@@ -3,6 +3,7 @@ package pl.maniak.udacity.bakingapp.ui.recipedetails.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import javax.inject.Inject;
@@ -22,8 +23,17 @@ public class RecipeDetailsFragment extends BaseFragment implements RecipeDetails
     @BindView(R.id.recipe_details_ingredients)
     TextView ingredientsLabel;
 
+    @BindView(R.id.recipe_details_recycler_view)
+    RecyclerView recyclerView;
+
     @Inject
     RecipeDetailsFragmentContract.Presenter presenter;
+
+    @Inject
+    RecipeDetailsStepAdapter adapter;
+
+    @Inject
+    RecyclerView.LayoutManager layoutManager;
 
     private Recipe recipe;
 
@@ -53,7 +63,15 @@ public class RecipeDetailsFragment extends BaseFragment implements RecipeDetails
     @Override
     protected void init() {
         initPresenter();
+        initRecycler();
         presenter.onFragmentReady(recipe);
+    }
+
+    private void initRecycler() {
+        recyclerView.setLayoutManager(layoutManager);
+        adapter.setOnClickListener(step -> presenter.onStepItemClicked(step));
+        recyclerView.setAdapter(adapter);
+        adapter.updateStep(recipe.getSteps());
     }
 
     @Override

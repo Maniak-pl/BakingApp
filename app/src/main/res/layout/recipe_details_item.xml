@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.loopeer.shadow.ShadowView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/recipe_step_item_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="15dp"
+    app:backgroundColor="@color/colorAccent"
+    app:cornerRadius="10dp"
+    app:shadowColor="@color/colorPrimary"
+    app:shadowMargin="10dp"
+    app:shadowRadius="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/recipe_step_item_label"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:textColor="@color/white"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:padding="10dp"
+            android:src="@drawable/ic_chevron_right"/>
+
+    </LinearLayout>
+</com.loopeer.shadow.ShadowView>
