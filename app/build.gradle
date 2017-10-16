@@ -70,6 +70,9 @@ dependencies {
     //ExoPlayer
     compile 'com.google.android.exoplayer:exoplayer:r2.4.1'
 
+    //Hawk
+    compile 'com.orhanobut:hawk:2.0.1'
+
     //Test
     testCompile 'junit:junit:4.12'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {

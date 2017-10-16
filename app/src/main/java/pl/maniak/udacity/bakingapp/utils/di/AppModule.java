@@ -8,7 +8,7 @@ import dagger.Module;
 import dagger.Provides;
 import lombok.RequiredArgsConstructor;
 import pl.maniak.udacity.bakingapp.App;
-
+import pl.maniak.udacity.bakingapp.db.PreferencesHelper;
 
 @Module
 @RequiredArgsConstructor
@@ -22,4 +22,9 @@ public class AppModule {
         return application;
     }
 
+    @Provides
+    @Singleton
+    PreferencesHelper providePreferencesHelper() {
+        return new PreferencesHelper();
+    }
 }

@@ -8,11 +8,13 @@ import java.util.List;
 import lombok.Builder;
 import pl.maniak.udacity.bakingapp.api.RecipeInterface;
 import pl.maniak.udacity.bakingapp.data.Recipe;
+import pl.maniak.udacity.bakingapp.db.PreferencesHelper;
 
 @Builder
 public class RecipeListPresenter implements RecipeListContract.Presenter {
 
     private RecipeInterface recipeInterface;
+    private PreferencesHelper helper;
     private RecipeListContract.View view;
     private RecipeListContract.Router router;
 
@@ -63,6 +65,7 @@ public class RecipeListPresenter implements RecipeListContract.Presenter {
         @Override
         protected void onPostExecute(List<Recipe> recipes) {
             if (recipes != null && view != null) {
+                helper.saveRecipeList(recipes);
                 view.showRecipeList(recipes);
                 view.hideProgress();
             }

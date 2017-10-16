@@ -1,9 +1,7 @@
 package pl.maniak.udacity.bakingapp.ui.recipedetails.fragment;
 
-import java.util.List;
-
-import pl.maniak.udacity.bakingapp.data.Ingredient;
 import pl.maniak.udacity.bakingapp.data.Recipe;
+import pl.maniak.udacity.bakingapp.utils.helpers.StringHelpers;
 
 public class RecipeDetailsFragmentPresenter implements RecipeDetailsFragmentContract.Presenter {
 
@@ -39,7 +37,7 @@ public class RecipeDetailsFragmentPresenter implements RecipeDetailsFragmentCont
     @Override
     public void onFragmentReady(Recipe recipe) {
         if (view != null) {
-            view.showIngredients(preparationIngredientsList(recipe.getIngredients()));
+            view.showIngredients(StringHelpers.preparationIngredientsList("Ingredients list: ", recipe.getIngredients()));
         }
     }
 
@@ -48,20 +46,5 @@ public class RecipeDetailsFragmentPresenter implements RecipeDetailsFragmentCont
         if (router != null) {
             router.navigateToRecipeStep(recipe, stepId);
         }
-    }
-
-    private String preparationIngredientsList(List<Ingredient> list) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Ingredients list: \n");
-        for (Ingredient ingredient : list) {
-            sb.append("\n\t* ")
-                    .append(ingredient.getIngredient())
-                    .append(" (")
-                    .append(ingredient.getQuantity())
-                    .append(" ")
-                    .append(ingredient.getMeasure())
-                    .append(")");
-        }
-        return sb.toString();
     }
 }

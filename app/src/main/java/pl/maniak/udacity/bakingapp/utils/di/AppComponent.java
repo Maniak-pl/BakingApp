@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import pl.maniak.udacity.bakingapp.api.RecipeInterface;
+import pl.maniak.udacity.bakingapp.db.PreferencesHelper;
 import pl.maniak.udacity.bakingapp.utils.di.network.NetworkModule;
 
 @Singleton
@@ -14,4 +15,5 @@ import pl.maniak.udacity.bakingapp.utils.di.network.NetworkModule;
 })
 public interface AppComponent {
     RecipeInterface getRecipeInterface();
+    PreferencesHelper getPreferencesHelper();
 }

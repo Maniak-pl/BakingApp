@@ -24,15 +24,10 @@ android:layout_height="wrap_content"
 
         <com.loopeer.shadow.ShadowView
             android:id="@+id/recipe_details_step_title_shadow"
+            style="@style/ShadowView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight=".8"
-            android:elevation="15dp"
-            app:backgroundColor="@color/colorAccent"
-            app:cornerRadius="10dp"
-            app:shadowColor="@color/colorPrimary"
-            app:shadowMargin="10dp"
-            app:shadowRadius="10dp">
+            android:layout_weight=".8">
 
             <TextView
                 android:id="@+id/recipe_details_step_title"
@@ -67,14 +62,7 @@ android:layout_height="wrap_content"
     </com.google.android.exoplayer2.ui.SimpleExoPlayerView>
 
     <com.loopeer.shadow.ShadowView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="15dp"
-        app:backgroundColor="@color/colorAccent"
-        app:cornerRadius="10dp"
-        app:shadowColor="@color/colorPrimary"
-        app:shadowMargin="10dp"
-        app:shadowRadius="10dp">
+        style="@style/ShadowView">
 
         <TextView
             android:id="@+id/recipe_details_step_description"

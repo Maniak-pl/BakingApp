@@ -71,13 +71,13 @@ public class RecipeDetailsStepFragmentPresenter implements RecipeDetailsStepFrag
         if (view != null) {
             showNavigationButton();
             view.releasePlayer();
-            showRecipeStepViedo();
+            showRecipeStepVideo();
             view.showTitleDetailStep(getStep().getShortDescription());
             view.showDescriptionDetailStep(getStep().getDescription());
         }
     }
 
-    private void showRecipeStepViedo() {
+    private void showRecipeStepVideo() {
         String video = getStep().getVideoURL();
         if(video != null && !video.isEmpty()) {
             view.showExoPlayer(true);

@@ -1,4 +1,5 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    >
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -6,6 +7,30 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Match">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="MatchWidth" parent="Match">
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="ShadowView" parent="MatchWidth">
+        <item name="backgroundColor">@color/colorAccent</item>
+        <item name="cornerRadius">10dp</item>
+        <item name="shadowColor">@color/colorPrimary</item>
+        <item name="shadowMargin">10dp</item>
+        <item name="shadowRadius">10dp</item>
+        <item name="android:elevation">15dp</item>
+    </style>
+
+    <style name="ShadowTextView" parent="MatchWidth">
+        <item name="android:padding">10dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">12dp</item>
     </style>
 
 </resources>
