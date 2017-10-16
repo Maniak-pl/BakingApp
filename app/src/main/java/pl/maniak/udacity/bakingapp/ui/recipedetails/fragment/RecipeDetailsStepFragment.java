@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,7 +46,7 @@ import static pl.maniak.udacity.bakingapp.utils.Constants.BUNDLE_KEY_STEP_ID;
 
 public class RecipeDetailsStepFragment extends BaseFragment implements RecipeDetailsStepFragmentContract.View, RecipeDetailsStepFragmentContract.Router {
 
-    private final static String FRAGMENT_TAG = RecipeDetailsStepFragment.class.getSimpleName();
+    public final static String FRAGMENT_TAG = RecipeDetailsStepFragment.class.getSimpleName();
 
     @BindView(R.id.recipe_details_step_title)
     TextView titleTv;
@@ -96,6 +95,7 @@ public class RecipeDetailsStepFragment extends BaseFragment implements RecipeDet
     @Override
     protected void init() {
         initPresenter();
+        initMediaSession();
 
         exoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIT);
 
@@ -105,8 +105,8 @@ public class RecipeDetailsStepFragment extends BaseFragment implements RecipeDet
 
     @Override
     public void onPause() {
-        super.onPause();
         presenter.onFragmentPause();
+        super.onPause();
     }
 
     private void initPresenter() {
@@ -127,12 +127,11 @@ public class RecipeDetailsStepFragment extends BaseFragment implements RecipeDet
 
     @Override
     public void showExoPlayer(boolean showPlayer) {
-        exoPlayerView.setVisibility(showPlayer ? View.VISIBLE : View.INVISIBLE);
+        exoPlayerView.setVisibility(showPlayer ? View.VISIBLE : View.GONE);
     }
 
     @Override
     public void initVideo(Uri mediaUri) {
-        initMediaSession();
         initPlayer(mediaUri);
     }
 
@@ -147,6 +146,11 @@ public class RecipeDetailsStepFragment extends BaseFragment implements RecipeDet
         if(mediaSession != null) {
             mediaSession.setActive(false);
         }
+    }
+
+    @Override
+    public void saveCurrentStep(int currentStep) {
+        getArguments().putInt(BUNDLE_KEY_STEP_ID, currentStep);
     }
 
     private void initMediaSession() {
@@ -200,8 +204,6 @@ public class RecipeDetailsStepFragment extends BaseFragment implements RecipeDet
                         stateBuilder.setState(PlaybackStateCompat.STATE_PLAYING, player.getCurrentPosition(), 1f);
                     } else if (playbackState == ExoPlayer.STATE_READY) {
                         stateBuilder.setState(PlaybackStateCompat.STATE_PAUSED, player.getCurrentPosition(), 1f);
-                    } else {
-                        Log.e("Maniak", "RecipeDetailsStepFragment.onPlayerStateChanged(): ");
                     }
                     mediaSession.setPlaybackState(stateBuilder.build());
                 }

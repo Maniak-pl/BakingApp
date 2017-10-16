@@ -63,6 +63,7 @@ public class RecipeDetailsStepFragmentPresenter implements RecipeDetailsStepFrag
     public void onFragmentPause() {
         if(view != null) {
             view.releasePlayer();
+            view.saveCurrentStep(currentStep);
         }
     }
 

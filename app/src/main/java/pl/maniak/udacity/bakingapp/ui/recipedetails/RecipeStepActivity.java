@@ -1,6 +1,7 @@
 package pl.maniak.udacity.bakingapp.ui.recipedetails;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import java.util.List;
 
@@ -25,17 +26,34 @@ public class RecipeStepActivity extends BaseActivity {
 
     @Override
     protected void init() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             showDetailsStepFragment(bundle.getParcelableArrayList(BUNDLE_KEY_STEP), bundle.getInt(BUNDLE_KEY_STEP_ID));
         }
     }
 
-    private void showDetailsStepFragment(List<Step> stepList, int currentId) {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.detailStepContainer,
-                        RecipeDetailsStepFragment.newInstance(stepList, currentId))
-                .commit();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showDetailsStepFragment(List<Step> stepList, int stepId) {
+        RecipeDetailsStepFragment fragment = (RecipeDetailsStepFragment) getSupportFragmentManager().findFragmentByTag(RecipeDetailsStepFragment.FRAGMENT_TAG);
+        if (fragment == null) {
+            fragment = RecipeDetailsStepFragment.newInstance(stepList, stepId);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.detailStepContainer,
+                            fragment,
+                            RecipeDetailsStepFragment.FRAGMENT_TAG)
+                    .commit();
+        }
     }
 
     @Override

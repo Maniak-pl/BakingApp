@@ -3,15 +3,20 @@ package pl.maniak.udacity.bakingapp.ui.recipedetails;
 import android.content.Intent;
 import android.os.Parcelable;
 import android.support.v7.app.ActionBar;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindBool;
 import pl.maniak.udacity.bakingapp.R;
 import pl.maniak.udacity.bakingapp.data.Recipe;
+import pl.maniak.udacity.bakingapp.data.Step;
 import pl.maniak.udacity.bakingapp.ui.BaseActivity;
 import pl.maniak.udacity.bakingapp.ui.recipedetails.fragment.RecipeDetailsFragment;
+import pl.maniak.udacity.bakingapp.ui.recipedetails.fragment.RecipeDetailsStepFragment;
 import pl.maniak.udacity.bakingapp.utils.Constants;
 import pl.maniak.udacity.bakingapp.utils.di.recipedetails.DaggerRecipeDetailsActivityComponent;
 import pl.maniak.udacity.bakingapp.utils.di.recipedetails.RecipeDetailsActivityModule;
@@ -19,6 +24,9 @@ import pl.maniak.udacity.bakingapp.utils.di.recipedetails.RecipeDetailsActivityM
 import static pl.maniak.udacity.bakingapp.utils.Constants.BUNDLE_KEY_RECIPE;
 
 public class RecipeDetailsActivity extends BaseActivity implements RecipeDetailsActivityContract.View, RecipeDetailsActivityContract.Router {
+
+    @BindBool(R.bool.two_pane_mode)
+    boolean twoPaneMode;
 
     @Inject
     RecipeDetailsActivityContract.Presenter presenter;
@@ -41,16 +49,27 @@ public class RecipeDetailsActivity extends BaseActivity implements RecipeDetails
 
     @Override
     protected void init() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initPresenter();
         if (getIntent().getExtras() != null) {
             recipe = getIntent().getExtras().getParcelable(BUNDLE_KEY_RECIPE);
-            presenter.onActivityReady(recipe);
+            presenter.onActivityReady(recipe, twoPaneMode);
         }
     }
 
     private void initPresenter() {
         presenter.attachView(this);
         presenter.attachRouter(this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -76,10 +95,20 @@ public class RecipeDetailsActivity extends BaseActivity implements RecipeDetails
     }
 
     @Override
+    public void showDetailsStepFragment(List<Step> stepList, int stepId) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.detailStepContainer,
+                        RecipeDetailsStepFragment.newInstance(stepList, stepId))
+                .commit();
+    }
+
+    @Override
     public void navigateToRecipeStep(Recipe recipe, int stepId) {
         Intent intent = new Intent(this, RecipeStepActivity.class);
         intent.putParcelableArrayListExtra(Constants.BUNDLE_KEY_STEP, (ArrayList<? extends Parcelable>) recipe.getSteps());
         intent.putExtra(Constants.BUNDLE_KEY_STEP_ID, stepId);
         startActivity(intent);
     }
+
+
 }
