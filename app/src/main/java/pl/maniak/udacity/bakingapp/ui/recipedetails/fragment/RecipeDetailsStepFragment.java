@@ -1,12 +1,15 @@
 package pl.maniak.udacity.bakingapp.ui.recipedetails.fragment;
 
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -32,6 +35,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindBool;
 import butterknife.BindView;
 import butterknife.OnClick;
 import pl.maniak.udacity.bakingapp.App;
@@ -59,6 +63,12 @@ public class RecipeDetailsStepFragment extends BaseFragment implements RecipeDet
 
     @BindView(R.id.recipe_details_step_previous)
     ImageView previousButton;
+
+    @BindView(R.id.recipe_details_navigate)
+    LinearLayout navigateLayout;
+
+    @BindBool(R.bool.two_pane_mode)
+    boolean isTwoPane;
 
     @BindView(R.id.recipe_details_step_player)
     SimpleExoPlayerView exoPlayerView;
@@ -101,6 +111,29 @@ public class RecipeDetailsStepFragment extends BaseFragment implements RecipeDet
 
         List<Step> stepList = getArguments().getParcelableArrayList(BUNDLE_KEY_STEP);
         presenter.onFragmentReady(stepList, getArguments().getInt(BUNDLE_KEY_STEP_ID));
+
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE && !isTwoPane) {
+            expandVideoView(exoPlayerView);
+            setViewVisibility(navigateLayout, false);
+            setViewVisibility(descriptionTv, false);
+        }
+    }
+
+    private void expandVideoView(SimpleExoPlayerView exoPlayer) {
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        exoPlayer.getLayoutParams().height = displayMetrics.heightPixels;
+        exoPlayer.getLayoutParams().width = displayMetrics.widthPixels;
+    }
+
+    private void setViewVisibility(View view, boolean show) {
+        if (show) {
+            view.setVisibility(View.VISIBLE);
+        } else {
+            view.setVisibility(View.GONE);
+        }
     }
 
     @Override

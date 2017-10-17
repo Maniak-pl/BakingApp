@@ -79,8 +79,8 @@ public class RecipeListActivity extends BaseActivity implements RecipeListContra
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int widthDivider = 800;
-        int width = displayMetrics.widthPixels;
-        return width / widthDivider;
+        int column = displayMetrics.widthPixels / widthDivider;
+        return column < 1 ? 1 : column;
     }
 
     @Override
