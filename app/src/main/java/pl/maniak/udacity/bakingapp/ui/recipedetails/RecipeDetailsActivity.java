@@ -3,6 +3,7 @@ package pl.maniak.udacity.bakingapp.ui.recipedetails;
 import android.content.Intent;
 import android.os.Parcelable;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
