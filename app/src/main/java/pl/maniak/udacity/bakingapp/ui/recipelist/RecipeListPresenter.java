@@ -66,6 +66,7 @@ public class RecipeListPresenter implements RecipeListContract.Presenter {
         protected void onPostExecute(List<Recipe> recipes) {
             if (recipes != null && view != null) {
                 helper.saveRecipeList(recipes);
+                view.showDownloadCompleted();
                 view.showRecipeList(recipes);
                 view.hideProgress();
             }

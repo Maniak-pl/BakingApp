@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">BakingApp</string>
     <string name="toast_connection_error">No Internet connection</string>
+    <string name="recipe_list_download_completed">Recipe download completed.</string>
 
     <!-- Widget -->
     <string name="widget_config_no_data">Recipe data is not available, please sync the data and try again.</string>

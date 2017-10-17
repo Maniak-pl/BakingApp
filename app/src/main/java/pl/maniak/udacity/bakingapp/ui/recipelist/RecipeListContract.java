@@ -9,6 +9,7 @@ import pl.maniak.udacity.bakingapp.ui.BaseContract;
 public interface RecipeListContract {
 
     interface View extends BaseContract.View {
+        void showDownloadCompleted();
         void showRecipeList(List<Recipe> recipes);
         void hideProgress();
     }

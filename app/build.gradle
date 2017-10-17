@@ -75,6 +75,7 @@ dependencies {
 
     //Test
     testCompile 'junit:junit:4.12'
+    compile 'com.android.support.test.espresso:espresso-idling-resource:2.2.2'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-v4'
@@ -92,4 +93,5 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-intents:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
 }

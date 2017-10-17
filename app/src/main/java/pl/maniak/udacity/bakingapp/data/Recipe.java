@@ -54,4 +54,9 @@ public class Recipe implements Parcelable {
         dest.writeInt(servings);
         dest.writeString(image);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return toString().equals(obj.toString());
+    }
 }

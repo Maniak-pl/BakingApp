@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:padding="5dp"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recipe_details_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp">
 
-    <com.loopeer.shadow.ShadowView
-        style="@style/ShadowView">
+    <com.loopeer.shadow.ShadowView style="@style/ShadowView">
 
         <TextView
             android:id="@+id/recipe_details_ingredients"
             style="@style/ShadowTextView"
-            tools:text="Recipe Ingredients"/>
+            tools:text="Recipe Ingredients" />
     </com.loopeer.shadow.ShadowView>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recipe_details_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
