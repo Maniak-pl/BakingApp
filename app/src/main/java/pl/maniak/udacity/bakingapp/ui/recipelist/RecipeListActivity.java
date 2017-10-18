@@ -1,6 +1,7 @@
 package pl.maniak.udacity.bakingapp.ui.recipelist;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
@@ -62,7 +63,7 @@ public class RecipeListActivity extends BaseActivity implements RecipeListContra
     }
 
     @Override
-    protected void init() {
+    protected void init(@Nullable Bundle savedInstanceState) {
         initPresenter();
         initRecycler();
     }

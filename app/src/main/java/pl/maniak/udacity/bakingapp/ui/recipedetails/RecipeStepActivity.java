@@ -1,6 +1,7 @@
 package pl.maniak.udacity.bakingapp.ui.recipedetails;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.MenuItem;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class RecipeStepActivity extends BaseActivity {
     }
 
     @Override
-    protected void init() {
+    protected void init(@Nullable Bundle savedInstanceState) {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {

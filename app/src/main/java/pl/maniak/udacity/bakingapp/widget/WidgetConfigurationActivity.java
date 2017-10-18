@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
@@ -55,7 +56,7 @@ public class WidgetConfigurationActivity extends BaseActivity {
     }
 
     @Override
-    protected void init() {
+    protected void init(@Nullable Bundle savedInstanceState) {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             widgetId = bundle.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID,

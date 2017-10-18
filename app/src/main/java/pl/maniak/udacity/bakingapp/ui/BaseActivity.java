@@ -23,7 +23,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
         ButterKnife.bind(this);
 
         initDaggerComponent();
-        init();
+        init(savedInstanceState);
     }
 
     @LayoutRes
@@ -31,7 +31,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
 
     protected abstract void initDaggerComponent();
 
-    protected abstract void init();
+    protected abstract void init(@Nullable Bundle savedInstanceState);
 
     protected abstract void clear();
 

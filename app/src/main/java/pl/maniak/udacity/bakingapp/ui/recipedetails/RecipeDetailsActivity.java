@@ -1,10 +1,15 @@
 package pl.maniak.udacity.bakingapp.ui.recipedetails;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
-import android.util.Log;
 import android.view.MenuItem;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +20,7 @@ import butterknife.BindBool;
 import pl.maniak.udacity.bakingapp.R;
 import pl.maniak.udacity.bakingapp.data.Recipe;
 import pl.maniak.udacity.bakingapp.data.Step;
+import pl.maniak.udacity.bakingapp.data.events.NavigateEvent;
 import pl.maniak.udacity.bakingapp.ui.BaseActivity;
 import pl.maniak.udacity.bakingapp.ui.recipedetails.fragment.RecipeDetailsFragment;
 import pl.maniak.udacity.bakingapp.ui.recipedetails.fragment.RecipeDetailsStepFragment;
@@ -49,12 +55,26 @@ public class RecipeDetailsActivity extends BaseActivity implements RecipeDetails
     }
 
     @Override
-    protected void init() {
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    protected void init(@Nullable Bundle savedInstanceState) {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initPresenter();
         if (getIntent().getExtras() != null) {
             recipe = getIntent().getExtras().getParcelable(BUNDLE_KEY_RECIPE);
-            presenter.onActivityReady(recipe, twoPaneMode);
+            if (savedInstanceState == null) {
+                presenter.onActivityReady(recipe, twoPaneMode);
+            }
         }
     }
 
@@ -65,7 +85,7 @@ public class RecipeDetailsActivity extends BaseActivity implements RecipeDetails
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 return true;
@@ -89,7 +109,6 @@ public class RecipeDetailsActivity extends BaseActivity implements RecipeDetails
     @Override
     public void showDetailsFragment() {
         RecipeDetailsFragment fragment = RecipeDetailsFragment.newInstance(recipe);
-        fragment.setOnStepClickedCallback(presenter::onRecipeStepItemClicked);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.detailContainer, fragment)
                 .commit();
@@ -111,5 +130,8 @@ public class RecipeDetailsActivity extends BaseActivity implements RecipeDetails
         startActivity(intent);
     }
 
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(NavigateEvent event) {
+        presenter.onRecipeStepItemClicked(event.getRecipe(),event.getStepId());
+    }
 }
