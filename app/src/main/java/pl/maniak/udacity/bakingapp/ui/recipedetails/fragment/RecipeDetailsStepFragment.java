@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -45,6 +46,7 @@ import pl.maniak.udacity.bakingapp.ui.BaseFragment;
 import pl.maniak.udacity.bakingapp.utils.di.recipedetails.DaggerRecipeDetailsStepFragmentComponent;
 import pl.maniak.udacity.bakingapp.utils.di.recipedetails.RecipeDetailsStepFragmentModule;
 
+import static pl.maniak.udacity.bakingapp.utils.Constants.BUNDLE_KEY_PLAYER_POSITION;
 import static pl.maniak.udacity.bakingapp.utils.Constants.BUNDLE_KEY_STEP;
 import static pl.maniak.udacity.bakingapp.utils.Constants.BUNDLE_KEY_STEP_ID;
 
@@ -72,9 +74,11 @@ public class RecipeDetailsStepFragment extends BaseFragment implements RecipeDet
 
     @BindView(R.id.recipe_details_step_player)
     SimpleExoPlayerView exoPlayerView;
+
     private SimpleExoPlayer player;
     private MediaSessionCompat mediaSession;
     private PlaybackStateCompat.Builder stateBuilder;
+    private long position;
 
     @Inject
     RecipeDetailsStepFragmentContract.Presenter presenter;
@@ -137,6 +141,16 @@ public class RecipeDetailsStepFragment extends BaseFragment implements RecipeDet
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        presenter.onFragmentResume();
+        position = getArguments().getLong(BUNDLE_KEY_PLAYER_POSITION, C.TIME_UNSET);
+        if(position != C.TIME_UNSET) {
+            player.seekTo(position);
+        }
+    }
+
+    @Override
     public void onPause() {
         presenter.onFragmentPause();
         super.onPause();
@@ -171,6 +185,7 @@ public class RecipeDetailsStepFragment extends BaseFragment implements RecipeDet
     @Override
     public void releasePlayer() {
         if(player != null) {
+            position = player.getCurrentPosition();
             player.stop();
             player.release();
             player = null;
@@ -184,6 +199,7 @@ public class RecipeDetailsStepFragment extends BaseFragment implements RecipeDet
     @Override
     public void saveCurrentStep(int currentStep) {
         getArguments().putInt(BUNDLE_KEY_STEP_ID, currentStep);
+        getArguments().putLong(BUNDLE_KEY_PLAYER_POSITION, position);
     }
 
     private void initMediaSession() {

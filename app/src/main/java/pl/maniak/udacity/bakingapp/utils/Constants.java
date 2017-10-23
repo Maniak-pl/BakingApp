@@ -8,9 +8,10 @@ public interface Constants {
 
     String BUNDLE_KEY_RECIPE = "recipe";
     String BUNDLE_KEY_STEP = "step_list";
+    String BUNDLE_KEY_PLAYER_POSITION = "player_position";
     String BUNDLE_KEY_LIST_STATE = "list_state";
-
     String BUNDLE_KEY_STEP_ID = "recipe_step_id";
+
     String PREFS_RECIPES = "recipes_pref";
     String PREFS_RECIPE_CHOSEN = "recipe_chosen_pref";
 }

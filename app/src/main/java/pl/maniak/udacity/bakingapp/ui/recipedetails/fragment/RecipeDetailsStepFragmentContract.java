@@ -26,6 +26,7 @@ public interface RecipeDetailsStepFragmentContract {
         void onNextButtonClicked();
         void onPreviousButtonClicked();
         void onFragmentReady(List<Step> list, int stepId);
+        void onFragmentResume();
         void onFragmentPause();
     }
 }

@@ -56,6 +56,10 @@ public class RecipeDetailsStepFragmentPresenter implements RecipeDetailsStepFrag
     public void onFragmentReady(List<Step> stepList, int currentStep) {
         this.stepList = stepList;
         this.currentStep = currentStep;
+    }
+
+    @Override
+    public void onFragmentResume() {
         showDetailStep();
     }
 
