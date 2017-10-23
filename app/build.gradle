@@ -76,6 +76,9 @@ dependencies {
     //Hawk
     compile 'com.orhanobut:hawk:2.0.1'
 
+    //Glide
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
     //Test
     testCompile 'junit:junit:4.12'
     compile 'com.android.support.test.espresso:espresso-idling-resource:2.2.2'

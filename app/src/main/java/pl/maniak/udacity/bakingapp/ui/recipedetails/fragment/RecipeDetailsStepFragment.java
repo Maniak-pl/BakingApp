@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -71,6 +73,9 @@ public class RecipeDetailsStepFragment extends BaseFragment implements RecipeDet
 
     @BindBool(R.bool.two_pane_mode)
     boolean isTwoPane;
+
+    @BindView(R.id.recipe_details_step_thumbnail)
+    ImageView imageThumbnail;
 
     @BindView(R.id.recipe_details_step_player)
     SimpleExoPlayerView exoPlayerView;
@@ -284,6 +289,20 @@ public class RecipeDetailsStepFragment extends BaseFragment implements RecipeDet
     @Override
     public void showTitleDetailStep(String title) {
         titleTv.setText(title);
+    }
+
+    @Override
+    public void showImageThumbnail(boolean showImage, String imageUrl) {
+        if (showImage) {
+            imageThumbnail.setVisibility(View.VISIBLE);
+            Glide.clear(imageThumbnail);
+            Glide.with(getContext())
+                    .load(imageUrl)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(imageThumbnail);
+        } else {
+            imageThumbnail.setVisibility(View.GONE);
+        }
     }
 
     @Override

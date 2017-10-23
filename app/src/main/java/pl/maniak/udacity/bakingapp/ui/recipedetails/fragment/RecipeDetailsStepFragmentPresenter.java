@@ -76,8 +76,17 @@ public class RecipeDetailsStepFragmentPresenter implements RecipeDetailsStepFrag
             showNavigationButton();
             view.releasePlayer();
             showRecipeStepVideo();
+            showImage(getStep().getThumbnailURL());
             view.showTitleDetailStep(getStep().getShortDescription());
             view.showDescriptionDetailStep(getStep().getDescription());
+        }
+    }
+
+    private void showImage(String thumbnailURL) {
+        if(thumbnailURL != null && !thumbnailURL.isEmpty()) {
+            view.showImageThumbnail(true, thumbnailURL);
+        } else {
+            view.showImageThumbnail(false, null);
         }
     }
 

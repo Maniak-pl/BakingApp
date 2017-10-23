@@ -11,6 +11,7 @@ public interface RecipeDetailsStepFragmentContract {
 
     interface View extends BaseContract.View {
         void showTitleDetailStep(String title);
+        void showImageThumbnail(boolean showImage, String imageUrl);
         void showDescriptionDetailStep(String description);
         void showNavigationButton(boolean showPreviousButton, boolean showNextButton);
         void showExoPlayer(boolean showPlayer);
